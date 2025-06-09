@@ -57,11 +57,22 @@ public class ProductServiceImpl implements ProductService {
     public ProductDTO updateProduct(Long id, ProductDTO dto) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy sản phẩm"));
-        product.setName(dto.getName());
-        product.setDescription(dto.getDescription());
-        product.setPrice(dto.getPrice());
-        product.setImageUrl(dto.getImageUrl());
 
+        if (dto.getName() != null) {
+            product.setName(dto.getName());
+        }
+        if (dto.getDescription() != null) {
+            product.setDescription(dto.getDescription());
+        }
+        if (dto.getPrice() != null) {
+            product.setPrice(dto.getPrice());
+        }
+        if (dto.getQuantity() != null) {
+            product.setQuantity(dto.getQuantity());
+        }
+        if (dto.getImageUrl() != null) {
+            product.setImageUrl(dto.getImageUrl());
+        }
         if (dto.getCategoryId() != null) {
             Category category = categoryRepository.findById(dto.getCategoryId())
                     .orElseThrow(() -> new RuntimeException("Không tìm thấy danh mục"));
@@ -82,6 +93,7 @@ public class ProductServiceImpl implements ProductService {
         dto.setName(product.getName());
         dto.setDescription(product.getDescription());
         dto.setPrice(product.getPrice());
+        dto.setQuantity(product.getQuantity());
         dto.setImageUrl(product.getImageUrl());
         if (product.getCategory() != null) {
             dto.setCategoryId(product.getCategory().getId());
