@@ -76,10 +76,6 @@ public class AdminController {
             @RequestBody UpdateOrderStatusRequest request) {
 
         String status = request.getStatus();
-        if (status == null || status.isEmpty()) {
-            return ResponseEntity.badRequest().body("Thiếu tham số 'status'");
-        }
-
         orderService.updateOrderStatus(id, status);
         return ResponseEntity.ok("Cập nhật trạng thái đơn hàng thành công");
     }
